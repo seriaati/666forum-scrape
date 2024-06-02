@@ -13,17 +13,18 @@ def load_posts() -> list[Post]:
         return [Post(**post) for post in json.load(f)]
 
 
-def get_post(posted_at: str) -> Post | None:
-    posts = load_posts()
+def get_post(posts: list[Post], posted_at: str) -> Post | None:
     for post in posts:
         if post.posted_at == posted_at:
             return post
     return None
 
 
-def save_posts(posts: list[Post]) -> list[Post]:
-    posts_to_dump = [post for post in posts if get_post(post.posted_at) is None]
+def save_posts(posts_to_save: list[Post], current_posts: list[Post]) -> list[Post]:
+    posts_to_save = [
+        post for post in posts_to_save if get_post(current_posts, post.posted_at) is None
+    ]
     with open(FILE_PATH, "w", encoding="utf-8") as f:
-        json.dump([post.model_dump() for post in posts_to_dump], f, ensure_ascii=False, indent=2)
+        json.dump([post.model_dump() for post in posts_to_save], f, ensure_ascii=False, indent=2)
 
-    return posts_to_dump
+    return posts_to_save

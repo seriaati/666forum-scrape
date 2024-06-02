@@ -3,7 +3,7 @@ import asyncio
 from dotenv import load_dotenv
 from loguru import logger
 
-from src.database import save_posts
+from src.database import load_posts, save_posts
 from src.scraper import fetch_forum_page, get_page_url, get_posts, get_total_page
 from src.utils import line_notify
 
@@ -23,7 +23,10 @@ async def main() -> None:
     posts = get_posts(last_page_content)
     logger.info(f"Found {len(posts)} posts")
 
-    saved_posts = save_posts(posts)
+    current_posts = load_posts()
+    logger.info(f"{len(current_posts)} posts in database")
+
+    saved_posts = save_posts(posts, current_posts)
     logger.info(f"Saved {len(saved_posts)} posts")
 
     for post in saved_posts:
