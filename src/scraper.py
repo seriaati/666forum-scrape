@@ -2,7 +2,6 @@ import re
 
 import aiohttp
 import bs4
-from fake_useragent import UserAgent
 from loguru import logger
 
 from .schema import Post
@@ -10,13 +9,11 @@ from .schema import Post
 FORUM_URL = "https://mikeon88.666forum.com/t2-topic"
 FORUM_URL_WITH_PAGE = "https://mikeon88.666forum.com/t2p{page}-topic"
 PROFILE_NAME = "mikeon88"
-ua = UserAgent()
 
 
 async def fetch_content(url: str) -> str:
     logger.info(f"Fetching {url}")
-    headers = {"User-Agent": ua.random}
-    async with aiohttp.ClientSession(headers=headers) as session, session.get(url) as response:
+    async with aiohttp.ClientSession() as session, session.get(url) as response:
         return await response.text()
 
 
