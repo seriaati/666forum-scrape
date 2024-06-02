@@ -1,0 +1,28 @@
+[project]
+description = "Web scrape the 666forum"
+name = "666forum-scrape"
+requires-python = ">=3.11"
+
+[tool.poetry]
+authors = ["seria <seria.ati@gmail.com>"]
+description = "Web scrape the 666forum"
+license = "GPL-3.0"
+name = "666forum-scrape"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+aiohttp = "^3.9.5"
+beautifulsoup4 = "^4.12.3"
+lxml = "^5.2.2"
+python = "^3.11"
+python-dotenv = "^1.0.1"
+pydantic = "^2.7.2"
+loguru = "^0.7.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.7"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
