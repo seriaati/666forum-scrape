@@ -17,8 +17,12 @@ async def fetch_content(url: str) -> str:
         return await response.text()
 
 
+def get_page_url(page: int) -> str:
+    return FORUM_URL_WITH_PAGE.format(page=page)
+
+
 async def fetch_forum_page(page: int) -> str:
-    return await fetch_content(FORUM_URL_WITH_PAGE.format(page=page))
+    return await fetch_content(get_page_url(page))
 
 
 async def get_total_page() -> int:
