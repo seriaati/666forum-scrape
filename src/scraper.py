@@ -59,6 +59,11 @@ def get_posts(content: str) -> list[Post]:
         if post_profile_name == PROFILE_NAME:
             post_content = post.find("div", class_="postbody").text
             posted_at = post.find("div", class_="topic-date").text
-            result.append(Post(posted_at=posted_at, content=post_content or None))
+
+            post_head = post.find("div", class_="post-head")
+            post_title = post_head.find("h2")
+            post_url = post_title.find("a")["href"]
+
+            result.append(Post(posted_at=posted_at, content=post_content or None, url=post_url))
 
     return result
