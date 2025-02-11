@@ -1,32 +1,27 @@
 [project]
-description = "Web scrape the 666forum"
 name = "666forum-scrape"
-requires-python = ">=3.11"
-
-[tool.poetry]
-authors = ["seria <seria.ati@gmail.com>"]
-description = "Web scrape the 666forum"
-license = "GPL-3.0"
-name = "666forum-scrape"
+version = "1.0.0"
+description = "Scrape the 666forum website"
 readme = "README.md"
-version = "0.1.0"
-package-mode = false
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.11.12",
+    "beautifulsoup4>=4.13.3",
+    "loguru>=0.7.3",
+    "lxml>=5.3.1",
+    "pydantic>=2.10.6",
+    "python-dotenv>=1.0.1",
+]
+license = { file = "LICENSE" }
+authors = [{ name = "seriaati", email = "seria.ati@gmail.com" }]
 
-[tool.poetry.dependencies]
-aiohttp = "^3.9.5"
-beautifulsoup4 = "^4.12.3"
-lxml = "^5.2.2"
-python = "^3.11"
-python-dotenv = "^1.0.1"
-pydantic = "^2.7.2"
-loguru = "^0.7.2"
-
-[tool.poetry.group.dev]
-optional = true
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9.0"
-
-[build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+[tool.pyright]
+enableTypeIgnoreComments = false
+reportIncompatibleMethodOverride = false
+reportIncompatibleVariableOverride = false
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnnecessaryIsInstance = true
+reportUnnecessaryTypeIgnoreComment = true
+typeCheckingMode = "standard"
+ignore = ["src/scraper.py"]
