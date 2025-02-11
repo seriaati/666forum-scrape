@@ -1,13 +1,17 @@
 import os
 
 import aiohttp
+from loguru import logger
 
 
-async def line_notify(message: str) -> None:
-    token = os.environ.get("LINE_NOTIFY_TOKEN")
-    if token is None:
-        msg = "LINE_NOTIFY_TOKEN is not set"
+async def send_webhook(message: str) -> None:
+    webhook_url = os.environ.get("WEBHOOK_URL")
+    if webhook_url is None:
+        msg = "WEBHOOK_URL is not set"
         raise ValueError(msg)
 
-    async with aiohttp.ClientSession(headers={"Authorization": f"Bearer {token}"}) as session:
-        await session.post("https://notify-api.line.me/api/notify", data={"message": message})
+    try:
+        async with aiohttp.ClientSession() as session:
+            await session.post(webhook_url, json={"content": message})
+    except Exception:
+        logger.exception("Failed to send webhook")

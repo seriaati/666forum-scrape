@@ -5,7 +5,7 @@ from loguru import logger
 
 from src.database import load_posts, save_posts
 from src.scraper import fetch_forum_page, get_posts, get_total_page
-from src.utils import line_notify
+from src.utils import send_webhook
 
 
 async def main() -> None:
@@ -30,9 +30,11 @@ async def main() -> None:
 
     for post in saved_posts:
         if post.content is not None:
-            await line_notify(f"\n新貼文\n發布於: {post.posted_at}\n\n{post.content}\n\n{post.real_url}")
+            await send_webhook(
+                f"新貼文\n發布於: {post.posted_at}\n\n{post.content}\n\n{post.real_url}"
+            )
         else:
-            await line_notify(f"\n新貼文\n發布於: {post.posted_at}\n\n(無內容)\n\n{post.real_url}")
+            await send_webhook(f"新貼文\n發布於: {post.posted_at}\n\n(無內容)\n\n{post.real_url}")
 
     logger.info("Scraping finished")
 
