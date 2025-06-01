@@ -6,8 +6,8 @@ from loguru import logger
 
 from .schema import Post
 
-FORUM_URL = "https://mikeon88.666forum.com/t2-topic"
-FORUM_URL_WITH_PAGE = "https://mikeon88.666forum.com/t2p{page}-topic"
+FORUM_URL = "https://mikeon88.666forum.com/t128-topic"
+FORUM_URL_WITH_PAGE = "https://mikeon88.666forum.com/t128p{page}-topic"
 PROFILE_NAME = "mikeon88"
 
 
